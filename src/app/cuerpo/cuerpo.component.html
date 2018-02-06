@@ -1,0 +1,17 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-4 align-center">
+      <form>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Nombre de usuario</label>
+          <input type="text"   [(ngModel)]="user"  [ngModelOptions]="{standalone: true}" class="form-control" id="exampleInputEmail1"
+                 aria-describedby="emailHelp"
+                 placeholder="Mete nombre de usuario">
+        </div>
+        {{user}}
+        <button type="submit" class="btn btn-primary" (click)="crearJugador()">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+

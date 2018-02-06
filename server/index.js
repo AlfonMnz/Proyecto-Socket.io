@@ -12,9 +12,12 @@ const port = process.env.PORT || 3000;
 
 io.on('connection', (socket) => {
   console.log('user connected');
-});
-console.log('vagina')
+  socket.on('new_user', function (par) {
+    console.log(par)
+  })
 
+
+});
 server.listen(port, () => {
   console.log(`started on port: ${port}`);
 });
