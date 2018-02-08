@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import * as io from 'socket.io-client';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class ConectionService {
@@ -18,4 +19,26 @@ export class ConectionService {
     this.id++;
   }
 
+  public comprobarUsuario = () => {
+    return Observable.create((observer) => {
+      this.socket.on('error_new_user', (data) => {
+        observer.next(data);
+      });
+      this.socket.on('usuario_correcto', (data) => {
+        observer.next(data);
+      });
+    });
+  }
+
+  enviar_mensaje(msg) {
+    this.socket.emit('new_message', msg);
+  }
+
+  public recibirMensaje = () => {
+    return Observable.create((observer) => {
+      this.socket.on('new_message', (msg) => {
+        observer.next(msg);
+      });
+    });
+  }
 }
