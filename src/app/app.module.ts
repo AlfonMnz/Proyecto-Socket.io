@@ -5,12 +5,14 @@ import {FormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
 import {ConectionService} from './conection.service';
 import {CuerpoComponent} from './cuerpo/cuerpo.component';
+import { InicioComponent } from './cuerpo/inicio/inicio.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CuerpoComponent
+    CuerpoComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,

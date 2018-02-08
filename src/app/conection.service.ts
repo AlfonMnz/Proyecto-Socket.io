@@ -14,7 +14,8 @@ export class ConectionService {
 
   nuevo_usuario(user) {
     this.socket.emit('new_user', {usuario: user, num: this.id + 1});
-    this.id ++;
 
+    this.id++;
   }
+
 }

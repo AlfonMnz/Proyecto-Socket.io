@@ -7,7 +7,7 @@ import {ConectionService} from '../conection.service';
   styleUrls: ['./cuerpo.component.css']
 })
 export class CuerpoComponent implements OnInit {
-  user = 'KJJJJ';
+
 
 
   constructor(private conectionService: ConectionService) {
@@ -16,9 +16,5 @@ export class CuerpoComponent implements OnInit {
   ngOnInit() {
   }
 
-  crearJugador() {
-    console.log('usuario', this.user);
-    this.conectionService.nuevo_usuario(this.user);
 
-  }
 }
