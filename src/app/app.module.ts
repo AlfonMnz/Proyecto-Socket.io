@@ -8,9 +8,12 @@ import {CuerpoComponent} from './cuerpo/cuerpo.component';
 import {InicioComponent} from './cuerpo/inicio/inicio.component';
 import {ChatComponent} from './cuerpo/chat/chat.component';
 import {HeaderComponent} from './header/header.component';
+import {JuegoComponent} from './cuerpo/juego/juego.component';
+
 const appRoutes: Routes = [
   {path: '', component: InicioComponent},
-  {path: 'chat', component: ChatComponent}
+  {path: 'chat', component: ChatComponent},
+  {path: 'juego', component: JuegoComponent}
 ];
 
 @NgModule({
@@ -19,7 +22,8 @@ const appRoutes: Routes = [
     CuerpoComponent,
     InicioComponent,
     ChatComponent,
-    HeaderComponent
+    HeaderComponent,
+    JuegoComponent
   ],
   imports: [
     BrowserModule,

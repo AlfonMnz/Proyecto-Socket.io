@@ -21,7 +21,7 @@ export class InicioComponent implements OnInit {
         this.crearJugador();
       } else {
         alert('adelante compañero');
-        this.router.navigate(['/chat']);
+        this.router.navigate(['/juego']);
       }
     });
   }

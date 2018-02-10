@@ -7,6 +7,7 @@ export class ConectionService {
   private url = 'http://localhost:3000';
   private socket;
   private id;
+  private user: any;
 
   constructor() {
     this.socket = io(this.url);
@@ -26,12 +27,13 @@ export class ConectionService {
       });
       this.socket.on('usuario_correcto', (data) => {
         observer.next(data);
+        this.user = data.usuario;
       });
     });
-  }
+  };
 
   enviar_mensaje(msg) {
-    this.socket.emit('new_message', msg);
+    this.socket.emit('new_message', {usuario: this.user, contenido: msg});
   }
 
   public recibirMensaje = () => {
