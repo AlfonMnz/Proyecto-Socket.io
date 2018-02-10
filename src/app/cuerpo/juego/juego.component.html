@@ -1,29 +1,32 @@
 <div class="container-fluid">
   <h1>Tres en raya</h1>
-  <table>
-    <tr>
-      <th
-      (click)="clickeado($event)"></th>
-      <th
-      (click)="clickeado($event)"></th>
-      <th
-      (click)="clickeado($event)"></th>
-    </tr>
-    <tr>
-      <th
-      (click)="clickeado($event)"></th>
-      <th
-      (click)="clickeado($event)"></th>
-      <th
-      (click)="clickeado($event)"></th>
-    </tr>
-    <tr>
-      <th
-      (click)="clickeado($event)"></th>
-      <th
-      (click)="clickeado($event)"></th>
-      <th
-      (click)="clickeado($event)"></th>
-    </tr>
-  </table>
+  <div id="3enraya">
+    <div class="row">
+      <button (click)="clickeado($event)"></button>
+      <button
+        (click)="clickeado($event)"></button>
+      <button
+        (click)="clickeado($event)"></button>
+    </div>
+    <div class="row">
+      <button
+        (click)="clickeado($event)"></button>
+      <button
+        (click)="clickeado($event)"></button>
+      <button
+        (click)="clickeado($event)"></button>
+    </div>
+    <div class="row">
+      <button
+        (click)="clickeado($event)"></button>
+      <button
+        (click)="clickeado($event)"></button>
+      <button
+        (click)="clickeado($event)"></button>
+    </div>
+  </div>
 </div>
+<script>
+  console.log("hola")
+  console.log($("#3enraya:first-child"))
+</script>

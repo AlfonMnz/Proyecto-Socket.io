@@ -44,18 +44,6 @@ export class ConectionService {
       });
     });
   };
-  public turno = () => {
-    return Observable.create((observer) => {
-      this.socket.on('turno', (data) => {
-        observer.next(data);
-      });
-    });
-  };
 
-
-  poner_X(juan) {
-    this.socket.emit('turno', juan);
-
-  }
 
 }
