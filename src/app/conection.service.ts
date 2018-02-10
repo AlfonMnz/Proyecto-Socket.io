@@ -8,6 +8,7 @@ export class ConectionService {
   private socket;
   private id;
   private user: any;
+  private celda: any;
 
   constructor() {
     this.socket = io(this.url);
@@ -42,5 +43,19 @@ export class ConectionService {
         observer.next(msg);
       });
     });
+  };
+  public turno = () => {
+    return Observable.create((observer) => {
+      this.socket.on('turno', (data) => {
+        observer.next(data);
+      });
+    });
+  };
+
+
+  poner_X(juan) {
+    this.socket.emit('turno', juan);
+
   }
+
 }

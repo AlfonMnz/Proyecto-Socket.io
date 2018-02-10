@@ -14,12 +14,14 @@ export class JuegoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.conectionService.turno().subscribe((data) => {
+      console.log(data);
+      data.setInnerHTML('X');
+    });
   }
 
   clickeado(event) {
-    this.celda = event.currentTarget;
-    console.log(this.celda);
-    this.celda.innerHTML = 'X';
+    this.conectionService.poner_X(event.currentTarget);
   }
 
 }

@@ -29,6 +29,10 @@ io.on('connection', (socket) => {
   socket.on('new_message', function (msg) {
     io.emit('new_message', msg.usuario + ":" + msg.contenido)
   })
+  socket.on('turno', function (celda) {
+    console.log(celda)
+    io.emit('turno', celda)
+  })
 });
 
 
