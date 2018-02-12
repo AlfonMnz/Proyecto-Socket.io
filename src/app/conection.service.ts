@@ -7,8 +7,9 @@ export class ConectionService {
   private url = 'http://localhost:3000';
   private socket;
   private id;
-  private user: any;
+  user: any;
   private celda: any;
+  lista_usuario = []
 
   constructor() {
     this.socket = io(this.url);
@@ -28,19 +29,41 @@ export class ConectionService {
       });
       this.socket.on('usuario_correcto', (data) => {
         observer.next(data);
-        this.user = data.usuario;
+        console.log('usuario correcto', data);
+        this.user = data.user;
+        this.lista_usuario = data.usuarios_disponibles;
       });
     });
   };
 
   enviar_mensaje(msg) {
-    this.socket.emit('new_message', {usuario: this.user, contenido: msg});
+    this.socket.emit('new_message', msg);
   }
 
   public recibirMensaje = () => {
     return Observable.create((observer) => {
       this.socket.on('new_message', (msg) => {
         observer.next(msg);
+      });
+    });
+  };
+
+  poner_X(fila, columna) {
+    this.socket.emit('turno', {fila: fila, columna: columna});
+  }
+
+  public HaLlegadoPoochie = () => {
+    return Observable.create((observer) => {
+      this.socket.on('turno', (data) => {
+        observer.next(data);
+      });
+    });
+  };
+  public HaLlegadoPoochieEnElChat = () => {
+    return Observable.create((observer) => {
+      this.socket.on('ha llegado un nuevo usuario', (data) => {
+        observer.next(data);
+        this.lista_usuario = data.usuarios_disponibles;
       });
     });
   };

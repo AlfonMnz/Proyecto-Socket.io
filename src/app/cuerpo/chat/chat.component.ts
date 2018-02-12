@@ -11,20 +11,30 @@ import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 export class ChatComponent implements OnInit {
   message = '';
   array_mensajes = [];
+  array_usuarios = [];
+  private usuario: any;
 
   constructor(private conectionService: ConectionService) {
   }
 
   ngOnInit() {
+    this.array_usuarios = this.conectionService.lista_usuario;
     this.conectionService.recibirMensaje().subscribe((data) => {
       console.log(data);
       this.array_mensajes.push(data);
     });
+    this.conectionService.HaLlegadoPoochieEnElChat().subscribe((data) => {
+      console.log(data);
+      this.array_usuarios = this.conectionService.lista_usuario;
+
+    });
   }
 
   enviar_mensaje() {
-    this.conectionService.enviar_mensaje(this.message);
+    console.log('usuario actual', this.conectionService.user);
+    this.conectionService.enviar_mensaje({msg: this.message, usuario: this.conectionService.user});
     this.message = '';
   }
+
 
 }

@@ -55,6 +55,17 @@
   </style>
 </head>
 <body>
+
+<div class="row col-6 usuarios">
+  <ul>
+    <li *ngFor="let usu of conectionService.lista_usuario">
+      {{usu}}
+    </li>
+  </ul>
+</div>
+<div class="row col-6">
+  <button type="button" class="btn btn-info">Let's get ready to rumble!!!</button>
+</div>
 <div class="row col-12">
   <ul id="messages">
     <li *ngFor="let mensaje of array_mensajes">

@@ -1,4 +1,4 @@
-let express = require('express')
+let express = require('express');
 let app = express();
 
 let http = require('http');
@@ -8,26 +8,32 @@ app.get('/', function (req, res) {
 });
 let socketIO = require('socket.io');
 let io = socketIO(server);
-let array_users = []
+let array_users = [];
 const port = process.env.PORT || 3000;
 
 io.on('connection', (socket) => {
   console.log('user connected');
   socket.on('new_user', function (par) {
-    console.log(array_users)
+    console.log(array_users);
     if (array_users.includes(par.usuario)) {
-      socket.emit('error_new_user', 'error')
+      socket.emit('error_new_user', 'error');
       console.log('error')
     }
     else {
-      console.log('correct')
-      console.log(socket.id)
-      socket.emit('usuario_correcto', 'correct')
-      array_users.push(par.usuario)
+      console.log('correct');
+      console.log(socket.id);
+      array_users.push(par.usuario);
+      socket.emit('usuario_correcto', {msg: 'correct', user: par.usuario, usuarios_disponibles: array_users});
+
+      io.emit('ha llegado un nuevo usuario', {usuarios_disponibles: array_users, usuario: par.usuario})
     }
-  })
+
+  });
   socket.on('new_message', function (msg) {
-    io.emit('new_message', msg.usuario + ":" + msg.contenido)
+    io.emit('new_message', msg.usuario + ":" + msg.msg)
+  });
+  socket.on('turno', function (data) {
+    io.emit('turno', data)
   })
 
 });

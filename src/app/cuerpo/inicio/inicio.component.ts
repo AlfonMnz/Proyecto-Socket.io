@@ -16,12 +16,13 @@ export class InicioComponent implements OnInit {
   ngOnInit() {
 
     this.conectionService.comprobarUsuario().subscribe((data) => {
-      if (data === 'error') {
+      if (data.msg === 'error') {
         this.user = window.prompt('El nombre de usuario está en uso');
         this.crearJugador();
       } else {
         alert('adelante compañero');
-        this.router.navigate(['/juego']);
+        console.log(data.user);
+        this.router.navigate(['/chat']);
       }
     });
   }
