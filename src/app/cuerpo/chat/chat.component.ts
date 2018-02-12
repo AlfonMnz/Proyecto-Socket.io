@@ -12,7 +12,7 @@ export class ChatComponent implements OnInit {
   message = '';
   array_mensajes = [];
   array_usuarios = [];
-  private usuario: any;
+
 
   constructor(private conectionService: ConectionService) {
   }
