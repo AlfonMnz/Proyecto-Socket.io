@@ -60,11 +60,17 @@
   <ul>
     <li *ngFor="let usu of conectionService.lista_usuario">
       {{usu}}
+
     </li>
   </ul>
 </div>
 <div class="row col-6">
   <button type="button" class="btn btn-info" (click)="usuario_listo()">Let's get ready to rumble!!!</button>
+</div>
+<div class="row col-12">
+  <button *ngIf="listo" class="btn btn-info">Retar a {{conectionService.user}}</button>
+  <button *ngIf="un_usuario_esta_listo" class="btn btn-info">Retar a {{el_nombre_usuario_listo}}
+  </button>
 </div>
 <div class="row col-12">
   <ul id="messages">

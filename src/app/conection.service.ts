@@ -11,6 +11,8 @@ export class ConectionService {
   status_user: any;
   private celda: any;
   lista_usuario = [];
+  private un_usuario_listo: any;
+  private nombre_usuario_listo: any;
 
   constructor() {
     this.socket = io(this.url);
@@ -82,5 +84,25 @@ export class ConectionService {
     this.socket.emit('usuario_listo', this.user);
   }
 
+  public ATodosUsuarioListo = () => {
+    return Observable.create((observer) => {
+      this.socket.on('usuario_listo', function (data) {
+        observer.next(data);
+        console.log(data);
+        this.un_usuario_listo = true;
+        this.nombre_usuario_listo = data.usuario_listo;
 
+
+      });
+
+    });
+  };
+  public prueba = () => {
+    return Observable.create((observer) => {
+      this.socket.on('prueba', function (data) {
+        observer.next(data);
+        console.log(data);
+      });
+    });
+  };
 }

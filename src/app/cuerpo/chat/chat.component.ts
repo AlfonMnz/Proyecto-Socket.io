@@ -13,6 +13,8 @@ export class ChatComponent implements OnInit {
   array_mensajes = [];
   array_usuarios = [];
   listo = false;
+  un_usuario_esta_listo = false;
+  el_nombre_usuario_listo: any;
 
 
   constructor(private conectionService: ConectionService) {
@@ -27,10 +29,21 @@ export class ChatComponent implements OnInit {
     this.conectionService.HaLlegadoPoochieEnElChat().subscribe((data) => {
       console.log(data);
       this.array_usuarios = this.conectionService.lista_usuario;
+      this.array_mensajes.push(data.msg);
 
     });
     this.conectionService.usuarioDesconectado().subscribe((data) => {
       this.array_mensajes.push(data.msg);
+    });
+    this.conectionService.ATodosUsuarioListo().subscribe((data) => {
+      console.log('usuario listo', data);
+      this.array_mensajes.push(data.msg);
+      this.un_usuario_esta_listo = true;
+      this.el_nombre_usuario_listo = data.nombre_usuario_listo;
+    });
+    this.conectionService.prueba().subscribe((data) => {
+      this.listo = data;
+      console.log('en el componente', data);
     });
   }
 

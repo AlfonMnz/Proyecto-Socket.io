@@ -31,7 +31,11 @@ io.on('connection', (socket) => {
         status: false
       });
       socket.username = par.usuario
-      io.emit('ha llegado un nuevo usuario', {usuarios_disponibles: array_users, usuario: par.usuario})
+      socket.status = false
+      io.emit('ha llegado un nuevo usuario', {
+        usuarios_disponibles: array_users,
+        msg: "Se ha conectado el usuario " + par.usuario
+      })
     }
 
   });
@@ -54,8 +58,12 @@ io.on('connection', (socket) => {
     })
   })
   socket.on('usuario_listo', function (data) {
-    let pos = array_users.indexOf({user: data})
-    console.log(pos)
+    socket.status = true;
+    socket.broadcast.emit('usuario_listo', {
+      msg: "el usuario " + socket.username + " está listo para la batalla",
+      nombre_usuario_listo: socket.username
+    })
+    socket.emit('prueba', socket.status)
   })
 
 });
