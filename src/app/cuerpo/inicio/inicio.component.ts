@@ -16,7 +16,7 @@ export class InicioComponent implements OnInit {
   ngOnInit() {
 
     this.conectionService.comprobarUsuario().subscribe((data) => {
-      if (data.msg === 'error') {
+      if (data === 'error') {
         this.user = window.prompt('El nombre de usuario está en uso');
         this.crearJugador();
       } else {

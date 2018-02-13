@@ -7,9 +7,10 @@ export class ConectionService {
   private url = 'http://localhost:3000';
   private socket;
   private id;
-  user: any;
+  user = '';
+  status_user: any;
   private celda: any;
-  lista_usuario = []
+  lista_usuario = [];
 
   constructor() {
     this.socket = io(this.url);
@@ -31,6 +32,7 @@ export class ConectionService {
         observer.next(data);
         console.log('usuario correcto', data);
         this.user = data.user;
+        this.status_user = data.status;
         this.lista_usuario = data.usuarios_disponibles;
       });
     });
@@ -67,6 +69,18 @@ export class ConectionService {
       });
     });
   };
+  public usuarioDesconectado = () => {
+    return Observable.create((observer) => {
+      this.socket.on('desconexion', (data) => {
+        observer.next(data);
+        this.lista_usuario = data.usuarios_disponibles;
+      });
+    });
+  };
+
+  usuario_listo() {
+    this.socket.emit('usuario_listo', this.user);
+  }
 
 
 }

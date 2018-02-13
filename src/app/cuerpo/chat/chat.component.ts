@@ -12,6 +12,7 @@ export class ChatComponent implements OnInit {
   message = '';
   array_mensajes = [];
   array_usuarios = [];
+  listo = false;
 
 
   constructor(private conectionService: ConectionService) {
@@ -28,12 +29,19 @@ export class ChatComponent implements OnInit {
       this.array_usuarios = this.conectionService.lista_usuario;
 
     });
+    this.conectionService.usuarioDesconectado().subscribe((data) => {
+      this.array_mensajes.push(data.msg);
+    });
   }
 
   enviar_mensaje() {
     console.log('usuario actual', this.conectionService.user);
     this.conectionService.enviar_mensaje({msg: this.message, usuario: this.conectionService.user});
     this.message = '';
+  }
+
+  usuario_listo() {
+    this.conectionService.usuario_listo();
   }
 
 

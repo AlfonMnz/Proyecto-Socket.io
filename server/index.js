@@ -18,13 +18,19 @@ io.on('connection', (socket) => {
     if (array_users.includes(par.usuario)) {
       socket.emit('error_new_user', 'error');
       console.log('error')
+
     }
     else {
       console.log('correct');
-      console.log(socket.id);
-      array_users.push(par.usuario);
-      socket.emit('usuario_correcto', {msg: 'correct', user: par.usuario, usuarios_disponibles: array_users});
 
+      array_users.push(par.usuario);
+      socket.emit('usuario_correcto', {
+        msg: 'correct',
+        user: par.usuario,
+        usuarios_disponibles: array_users,
+        status: false
+      });
+      socket.username = par.usuario
       io.emit('ha llegado un nuevo usuario', {usuarios_disponibles: array_users, usuario: par.usuario})
     }
 
@@ -34,6 +40,22 @@ io.on('connection', (socket) => {
   });
   socket.on('turno', function (data) {
     io.emit('turno', data)
+  })
+  socket.on('disconnect', function (data) {
+    console.log("se ha desconectado el usuario")
+    let pos = array_users.indexOf(socket.username)
+    console.log(array_users)
+    console.log(array_users[pos])
+    array_users.splice(pos, 1)
+    console.log(array_users)
+    io.emit('desconexion', {
+      msg: "se has desconectado el usuario " + socket.username,
+      usuarios_disponibles: array_users
+    })
+  })
+  socket.on('usuario_listo', function (data) {
+    let pos = array_users.indexOf({user: data})
+    console.log(pos)
   })
 
 });
