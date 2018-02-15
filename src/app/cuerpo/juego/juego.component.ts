@@ -11,9 +11,10 @@ export class JuegoComponent implements OnInit {
   private turno = false;
   private selector;
   array_celdas = [['', '', ''],
-                  ['', '', ''],
-                  ['', '', '']];
-
+    ['', '', ''],
+    ['', '', '']];
+  array_mensajes = [];
+  message = '';
 
   constructor(private conectionService: ConectionService) {
   }
@@ -23,8 +24,17 @@ export class JuegoComponent implements OnInit {
       this.array_celdas[data.fila][data.columna] = 'x';
       console.log(data);
 
-
     });
+    this.conectionService.recibirMensaje().subscribe((data) => {
+      console.log(data);
+      this.array_mensajes.push(data);
+    });
+  }
+
+  enviar_mensaje() {
+    console.log('usuario actual', this.conectionService.user);
+    this.conectionService.enviar_mensaje({msg: this.message, usuario: this.conectionService.user});
+    this.message = '';
   }
 
   clickeado(fila, columna) {

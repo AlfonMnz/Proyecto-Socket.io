@@ -105,4 +105,21 @@ export class ConectionService {
       });
     });
   };
+
+  otro_usuario_listo() {
+
+    this.socket.emit('otro_usuario_listo', this.user);
+  }
+
+  comprobar_si_esta_logueado() {
+    this.socket.emit('comprobar_si_esta_logueado', 'data');
+  }
+
+  public recibir_logueado = () => {
+    return Observable.create((observer) => {
+      this.socket.on('no_esta_logueado', function (data) {
+        observer.next(data);
+      });
+    });
+  };
 }

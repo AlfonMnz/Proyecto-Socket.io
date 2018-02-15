@@ -12,6 +12,7 @@ let array_users = [];
 const port = process.env.PORT || 3000;
 
 io.on('connection', (socket) => {
+  socket.username = ''
   console.log('user connected');
   socket.on('new_user', function (par) {
     console.log(array_users);
@@ -59,11 +60,20 @@ io.on('connection', (socket) => {
   })
   socket.on('usuario_listo', function (data) {
     socket.status = true;
+    socket.prueba = socket.id
     socket.broadcast.emit('usuario_listo', {
       msg: "el usuario " + socket.username + " está listo para la batalla",
       nombre_usuario_listo: socket.username
     })
     socket.emit('prueba', socket.status)
+  })
+  socket.on('comprobar_si_esta_logueado', function () {
+    if (socket.username == '') {
+      socket.emit('no_esta_logueado', "hola")
+    }
+  })
+  socket.on('otro_usuario_listo', function (data) {
+
   })
 
 });

@@ -68,9 +68,13 @@
   <button type="button" class="btn btn-info" (click)="usuario_listo()">Let's get ready to rumble!!!</button>
 </div>
 <div class="row col-12">
-  <button *ngIf="listo" class="btn btn-info">Retar a {{conectionService.user}}</button>
-  <button *ngIf="un_usuario_esta_listo" class="btn btn-info">Retar a {{el_nombre_usuario_listo}}
+
+  <button *ngIf="un_usuario_esta_listo" (click)="otro_usuario_listo()" class="btn btn-info">Retar a
+    {{el_nombre_usuario_listo}}
   </button>
+</div>
+<div class="row col-12">
+  <button *ngIf="listo" class="btn btn-info">Esperando oponente</button>
 </div>
 <div class="row col-12">
   <ul id="messages">

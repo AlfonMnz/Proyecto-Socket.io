@@ -17,7 +17,7 @@ export class ChatComponent implements OnInit {
   el_nombre_usuario_listo: any;
 
 
-  constructor(private conectionService: ConectionService) {
+  constructor(private conectionService: ConectionService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
@@ -40,10 +40,16 @@ export class ChatComponent implements OnInit {
       this.array_mensajes.push(data.msg);
       this.un_usuario_esta_listo = true;
       this.el_nombre_usuario_listo = data.nombre_usuario_listo;
+      if (this.listo === true) {
+        this.router.navigate(['/juego']);
+      }
     });
     this.conectionService.prueba().subscribe((data) => {
       this.listo = data;
       console.log('en el componente', data);
+    });
+    this.conectionService.recibir_logueado().subscribe((data) => {
+      this.router.navigate(['/']);
     });
   }
 
@@ -55,6 +61,15 @@ export class ChatComponent implements OnInit {
 
   usuario_listo() {
     this.conectionService.usuario_listo();
+  }
+
+  otro_usuario_listo() {
+    this.conectionService.otro_usuario_listo();
+    this.router.navigate(['/juego']);
+  }
+
+  comprobar_si_esta_logueado() {
+    this.conectionService.comprobar_si_esta_logueado();
   }
 
 

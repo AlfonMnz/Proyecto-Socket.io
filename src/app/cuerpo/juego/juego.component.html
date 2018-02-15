@@ -1,4 +1,123 @@
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font: 13px Helvetica, Arial;
+  }
+
+  form {
+    /*background: #000;*/
+
+    padding: 3px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+
+  form input {
+    border: 2px solid black;
+    padding: 10px;
+    max-width: 90%;
+    margin-right: .5%;
+    min-width: 40%;
+  }
+
+  form button {
+    width: 9%;
+    background: rgb(130, 224, 255);
+    border: none;
+    padding: 10px;
+  }
+
+  #messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  #messages li {
+    padding: 5px 10px;
+  }
+
+  #messages li:nth-child(odd) {
+    background: #eee;
+  }
+
+  #messages {
+    margin-bottom: 40px
+  }
+</style>
 <div class="container-fluid">
+  <div class="row">
+    <div class="col-6">
+      <div class="row">
+        <h1>TRES EN RAYA DE COCA!</h1>
+      </div>
+      <div class="row">
+        <button (click)="clickeado(0,0)"
+                [ngClass]="{'inactive': array_celdas[0][0] == '', 'red': array_celdas[0][0] == 'x', 'blue': array_celdas[0][0] == 'o'}">
+          {{array_celdas[0][0]}}
+        </button>
+        <button (click)="clickeado(0,1)"
+                [ngClass]="{'inactive': array_celdas[0][1] == '', 'red': array_celdas[0][1] == 'x', 'blue': array_celdas[0][1] == 'o'}">
+          {{array_celdas[0][1]}}
+        </button>
+        <button (click)="clickeado(0,2)"
+                [ngClass]="{'inactive': array_celdas[0][2] == '', 'red': array_celdas[0][2] == 'x', 'blue': array_celdas[0][2] == 'o'}">
+          {{array_celdas[0][2]}}
+        </button>
+
+      </div>
+      <div class="row">
+        <button (click)="clickeado(1,0)"
+                [ngClass]="{'inactive': array_celdas[1][0] == '', 'red': array_celdas[1][0] == 'x', 'blue': array_celdas[1][0] == 'o'}">
+          {{array_celdas[1][0]}}
+        </button>
+        <button (click)="clickeado(1,1)"
+                [ngClass]="{'inactive': array_celdas[1][1] == '', 'red': array_celdas[1][1] == 'x', 'blue': array_celdas[1][1] == 'o'}">
+          {{array_celdas[1][1]}}
+        </button>
+        <button (click)="clickeado(1,2)"
+                [ngClass]="{'inactive': array_celdas[1][2] == '', 'red': array_celdas[1][2] == 'x', 'blue': array_celdas[1][2] == 'o'}">
+          {{array_celdas[1][2]}}
+        </button>
+
+      </div>
+      <div class="row">
+        <button (click)="clickeado(2,0)"
+                [ngClass]="{'inactive': array_celdas[2][0] == '', 'red': array_celdas[2][0] == 'x', 'blue': array_celdas[2][0] == 'o'}">
+          {{array_celdas[2][0]}}
+        </button>
+        <button (click)="clickeado(2,1)"
+                [ngClass]="{'inactive': array_celdas[2][1] == '', 'red': array_celdas[2][1] == 'x', 'blue': array_celdas[2][1] == 'o'}">
+          {{array_celdas[2][1]}}
+        </button>
+        <button (click)="clickeado(2,2)"
+                [ngClass]="{'inactive': array_celdas[2][2] == '', 'red': array_celdas[2][2] == 'x', 'blue': array_celdas[2][2] == 'o'}">
+          {{array_celdas[2][2]}}
+        </button>
+
+      </div>
+    </div>
+    <div class="col-6">
+      <ul id="messages">
+        <li *ngFor="let mensaje of array_mensajes">
+          {{mensaje}}
+        </li>
+      </ul>
+      <form action="">
+        <input name="mensaje" [(ngModel)]="message" id="m" autocomplete="off"/>
+        <button (click)="enviar_mensaje()">Send</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--<div class="container-fluid">
   <div class="row">
     <h1>Tres en raya</h1>
   </div>
@@ -44,4 +163,17 @@
       {{array_celdas[2][2]}}
     </button>
   </div>
-</div>
+  <div class="row">
+    <div class="col-12">
+      <ul id="messages">
+        <li *ngFor="let mensaje of array_mensajes">
+          {{mensaje}}
+        </li>
+      </ul>
+      <form action="">
+        <input name="mensaje" [(ngModel)]="message" id="m" autocomplete="off"/>
+        <button (click)="enviar_mensaje()">Send</button>
+      </form>
+    </div>
+  </div>
+</div>-->
