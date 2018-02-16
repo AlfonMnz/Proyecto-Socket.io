@@ -22,6 +22,7 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
     this.array_usuarios = this.conectionService.lista_usuario;
+    this.comprobar_si_esta_logueado();
     this.conectionService.recibirMensaje().subscribe((data) => {
       console.log(data);
       this.array_mensajes.push(data);
