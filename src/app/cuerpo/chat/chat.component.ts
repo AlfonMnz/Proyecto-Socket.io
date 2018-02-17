@@ -13,8 +13,11 @@ export class ChatComponent implements OnInit {
   array_mensajes = [];
   array_usuarios = [];
   listo = false;
+  usuario1_nombre: any;
+
   un_usuario_esta_listo = false;
   el_nombre_usuario_listo: any;
+  usuario1_listo = false;
 
 
   constructor(private conectionService: ConectionService, private route: ActivatedRoute, private router: Router) {
@@ -36,7 +39,18 @@ export class ChatComponent implements OnInit {
     this.conectionService.usuarioDesconectado().subscribe((data) => {
       this.array_mensajes.push(data.msg);
     });
-    this.conectionService.ATodosUsuarioListo().subscribe((data) => {
+    this.conectionService.usuario1_listo().subscribe((data) => {
+      this.usuario1_nombre = data;
+      this.usuario1_listo = true;
+
+    });
+    this.conectionService.usuario_2_listo().subscribe((data) => {
+      this.usuario1_listo = false;
+      if (data === this.conectionService.user) {
+        this.router.navigate(['/juego']);
+      }
+    });
+    /*this.conectionService.ATodosUsuarioListo().subscribe((data) => {
       console.log('usuario listo', data);
       this.array_mensajes.push(data.msg);
       this.un_usuario_esta_listo = true;
@@ -44,14 +58,22 @@ export class ChatComponent implements OnInit {
       if (this.listo === true) {
         this.router.navigate(['/juego']);
       }
-    });
-    this.conectionService.prueba().subscribe((data) => {
+    });*/
+    /*this.conectionService.prueba().subscribe((data) => {
       this.listo = data;
       console.log('en el componente', data);
-    });
+    });*/
+    /*this.conectionService.OtroUsuarioListo().subscribe((data) => {
+      if (this.listo == true) {
+        this.router.navigate(['/juego']);
+      }
+    });*/
     this.conectionService.recibir_logueado().subscribe((data) => {
       this.router.navigate(['/']);
     });
+    /*this.conectionService.comenzar_partida().subscribe((data) => {
+      this.router.navigate(['/juego']);
+    });*/
   }
 
   enviar_mensaje() {
@@ -62,15 +84,19 @@ export class ChatComponent implements OnInit {
 
   usuario_listo() {
     this.conectionService.usuario_listo();
+    this.listo = true;
   }
 
-  otro_usuario_listo() {
-    this.conectionService.otro_usuario_listo();
-    this.router.navigate(['/juego']);
-  }
 
   comprobar_si_esta_logueado() {
     this.conectionService.comprobar_si_esta_logueado();
+  }
+
+  usuario2_listo() {
+    this.conectionService.usuario2_listo(this.usuario1_nombre);
+
+    this.router.navigate(['/juego']);
+
   }
 
 

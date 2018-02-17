@@ -80,11 +80,11 @@ export class ConectionService {
     });
   };
 
-  usuario_listo() {
+  /*usuario_listo() {
     this.socket.emit('usuario_listo', this.user);
-  }
+  }*/
 
-  public ATodosUsuarioListo = () => {
+  /*public ATodosUsuarioListo = () => {
     return Observable.create((observer) => {
       this.socket.on('usuario_listo', function (data) {
         observer.next(data);
@@ -96,20 +96,27 @@ export class ConectionService {
       });
 
     });
-  };
-  public prueba = () => {
+  };*/
+  /*public OtroUsuarioListo = () => {
+    return Observable.create((observer) => {
+      this.socket.on('otro_usuario_listo', function (data) {
+        observer.next(data);
+      });
+    });
+  };*/
+  /*public prueba = () => {
     return Observable.create((observer) => {
       this.socket.on('prueba', function (data) {
         observer.next(data);
         console.log(data);
       });
     });
-  };
+  };*/
 
-  otro_usuario_listo() {
+  /*otro_usuario_listo() {
 
-    this.socket.emit('otro_usuario_listo', this.user);
-  }
+    this.socket.emit('otro_usuario_listo', this.nombre_usuario_listo);
+  }*/
 
   comprobar_si_esta_logueado() {
     this.socket.emit('comprobar_si_esta_logueado', 'data');
@@ -122,5 +129,34 @@ export class ConectionService {
       });
     });
   };
+  public comenzar_partida = () => {
+    return Observable.create((observer) => {
+      this.socket.on('comenzar_partida', function (data) {
+        observer.next(data);
+      });
+    });
+  };
+  public usuario1_listo = () => {
+    return Observable.create((observer) => {
+      this.socket.on('el_usuario1_esta_listo', function (data) {
+        observer.next(data);
+      });
+    });
+  };
+  public usuario_2_listo = () => {
+    return Observable.create((observer) => {
+      this.socket.on('el_usuario2_esta_listo', function (data) {
+        observer.next(data);
+      });
+    });
+  };
 
+  usuario_listo() {
+    this.socket.emit('el_usuario1_esta_listo', 'usuario1');
+    this.status_user = true;
+  }
+
+  usuario2_listo(usuario1_nombre) {
+    this.socket.emit('el_usuario2_esta_listo', usuario1_nombre);
+  }
 }

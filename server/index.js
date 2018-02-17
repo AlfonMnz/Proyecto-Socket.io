@@ -57,15 +57,6 @@ io.on('connection', (socket) => {
       usuarios_disponibles: array_users
     })
   });
-  socket.on('usuario_listo', function (data) {
-    socket.status = true;
-    socket.prueba = socket.id;
-    socket.broadcast.emit('usuario_listo', {
-      msg: "el usuario " + socket.username + " está listo para la batalla",
-      nombre_usuario_listo: socket.username
-    });
-    socket.emit('prueba', socket.status)
-  });
   socket.on('comprobar_si_esta_logueado', function () {
     console.log('comprobando si esta logueado', socket.username)
     if (socket.username == '') {
@@ -73,9 +64,22 @@ io.on('connection', (socket) => {
 
     }
   });
-  socket.on('otro_usuario_listo', function (data) {
 
+  socket.on('el_usuario1_esta_listo', function (data) {
+    socket.status = true
+    socket.broadcast.emit('el_usuario1_esta_listo', socket.username)
   })
+  socket.on('el_usuario2_esta_listo', function (data) {
+    socket.broadcast.emit('el_usuario2_esta_listo', data)
+  })
+  /*  socket.on('otro_usuario_listo', function (data) {
+      if (data == socket.username){
+        socket.emit('comenzar_partida','lets go')
+        io.emit('otro_usuario_listo','definitivo')
+
+      }
+
+    })*/
 
 });
 
