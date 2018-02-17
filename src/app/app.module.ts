@@ -9,6 +9,7 @@ import {InicioComponent} from './cuerpo/inicio/inicio.component';
 import {ChatComponent} from './cuerpo/chat/chat.component';
 import {HeaderComponent} from './header/header.component';
 import {JuegoComponent} from './cuerpo/juego/juego.component';
+import { FooterComponent } from './footer/footer.component';
 
 const appRoutes: Routes = [
   {path: '', component: InicioComponent},
@@ -23,7 +24,8 @@ const appRoutes: Routes = [
     InicioComponent,
     ChatComponent,
     HeaderComponent,
-    JuegoComponent
+    JuegoComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

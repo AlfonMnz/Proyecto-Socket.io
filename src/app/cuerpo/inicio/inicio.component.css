@@ -5,3 +5,13 @@
   -moz-box-shadow: 3px 6px 14px -3px rgba(0,0,0,0.75);
   box-shadow: 3px 6px 14px -3px rgba(0,0,0,0.75);
 }
+
+.file-field.medium .file-path-wrapper {
+  height: 3rem; }
+.file-field.medium .file-path-wrapper .file-path {
+  height: 2.8rem; }
+
+.file-field.big-2 .file-path-wrapper {
+  height: 3.7rem; }
+.file-field.big-2 .file-path-wrapper .file-path {
+  height: 3.5rem; }

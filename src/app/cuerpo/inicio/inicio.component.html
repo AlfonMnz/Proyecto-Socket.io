@@ -1,20 +1,36 @@
-<div class="col-4 text-center">
+<div class="container-fluid">
+  <div class="row text-center mt-1">
+    <div class="col-4 align-self-center">
 
-  <div class="contenedor">
+      <div class="contenedor">
 
-    <p class="h5 text-center mb-4">Sign in</p>
+        <p class="h5 text-center mb-4">Sign in</p>
 
-    <div class="md-form">
-      <i class="far fa-smile"></i>
-      <input type="text" id="defaultForm-email" [(ngModel)]="user" class="form-control">
-      <label type="text" for="defaultForm-email" ngDefaultControl>Inserta tu nombre</label>
+        <div class="md-form">
+          <i class="far fa-smile"></i>
+          <input type="text" id="defaultForm-email" [(ngModel)]="user" class="form-control">
+          <label type="text" for="defaultForm-email" ngDefaultControl>Inserta tu nombre</label>
+        </div>
+
+        <form action="#">
+          <div class="file-field">
+            <div class="btn btn-outline-info waves-effect btn-sm">
+              <span>Choose files</span>
+              <input type="file" multiple>
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text" placeholder="Upload one or more files">
+            </div>
+          </div>
+        </form>
+
+
+        <div class="">
+          <button class="btn btn-default" (click)="crearJugador()">Login</button>
+        </div>
+
+      </div>
     </div>
-
-
-    <div class="text-center">
-      <button class="btn btn-default" (click)="crearJugador()">Login</button>
-    </div>
-
   </div>
 </div>
 <!-- Form login -->

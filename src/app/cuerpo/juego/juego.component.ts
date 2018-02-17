@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ConectionService} from '../../conection.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-juego',
@@ -16,10 +17,11 @@ export class JuegoComponent implements OnInit {
   array_mensajes = [];
   message = '';
 
-  constructor(private conectionService: ConectionService) {
+  constructor(private conectionService: ConectionService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
+    this.comprobar_si_esta_logueado();
     this.conectionService.HaLlegadoPoochie().subscribe((data) => {
       this.array_celdas[data.fila][data.columna] = 'x';
       console.log(data);
@@ -28,6 +30,9 @@ export class JuegoComponent implements OnInit {
     this.conectionService.recibirMensaje().subscribe((data) => {
       console.log(data);
       this.array_mensajes.push(data);
+    });
+    this.conectionService.recibir_logueado().subscribe((data) => {
+      this.router.navigate(['/']);
     });
   }
 
@@ -40,9 +45,10 @@ export class JuegoComponent implements OnInit {
   clickeado(fila, columna) {
     console.log(this.array_celdas[(fila)][(columna)]);
     this.conectionService.poner_X(fila, columna);
-
-
   }
 
+  comprobar_si_esta_logueado() {
+    this.conectionService.comprobar_si_esta_logueado();
+  };
 
 }
