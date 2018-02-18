@@ -12,6 +12,10 @@ const port = process.env.PORT || 3000;
 
 io.on('connection', (socket) => {
   socket.username = '';
+  socket.usuario1_figura = 'x';
+  socket.usuario2_figura = 'o';
+  socket.usuario1_nombre = '';
+  socket.usuario2_nombre = '';
   console.log('user connected');
   socket.on('new_user', function (par) {
     console.log(array_users);
@@ -43,6 +47,8 @@ io.on('connection', (socket) => {
     io.emit('new_message', msg.usuario + ":" + msg.msg)
   });
   socket.on('turno', function (data) {
+    socket.emit('not_turn', false)
+    socket.broadcast.emit('your_turn', true)
     io.emit('turno', data)
   });
   socket.on('disconnect', function (data) {
@@ -58,7 +64,7 @@ io.on('connection', (socket) => {
     })
   });
   socket.on('comprobar_si_esta_logueado', function () {
-    console.log('comprobando si esta logueado', socket.username)
+    console.log('comprobando si esta logueado', socket.username);
     if (socket.username == '') {
       socket.emit('no_esta_logueado', "hola")
 
@@ -66,11 +72,20 @@ io.on('connection', (socket) => {
   });
 
   socket.on('el_usuario1_esta_listo', function (data) {
-    socket.status = true
+    socket.status = true;
+    socket.usuario1_nombre = socket.username;
     socket.broadcast.emit('el_usuario1_esta_listo', socket.username)
-  })
+  });
   socket.on('el_usuario2_esta_listo', function (data) {
+    socket.usuario1_nombre = data.name1;
+    socket.usuario2_nombre = data.name2;
     socket.broadcast.emit('el_usuario2_esta_listo', data)
+  });
+  socket.on('iniciar_partida', function (data) {
+    console.log("usuario1:", socket.usuario1_nombre)
+    console.log("usuario2:", socket.usuario2_nombre)
+    io.emit('asignando_figuras', socket.usuario1_nombre)
+
   })
   /*  socket.on('otro_usuario_listo', function (data) {
       if (data == socket.username){

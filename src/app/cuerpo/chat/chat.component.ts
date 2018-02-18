@@ -14,6 +14,7 @@ export class ChatComponent implements OnInit {
   array_usuarios = [];
   listo = false;
   usuario1_nombre: any;
+  usuario2_nombre: any;
 
   un_usuario_esta_listo = false;
   el_nombre_usuario_listo: any;
@@ -46,7 +47,7 @@ export class ChatComponent implements OnInit {
     });
     this.conectionService.usuario_2_listo().subscribe((data) => {
       this.usuario1_listo = false;
-      if (data === this.conectionService.user) {
+      if (data.name1 === this.conectionService.user) {
         this.router.navigate(['/juego']);
       }
     });
@@ -93,7 +94,9 @@ export class ChatComponent implements OnInit {
   }
 
   usuario2_listo() {
-    this.conectionService.usuario2_listo(this.usuario1_nombre);
+    this.usuario2_nombre = this.conectionService.user
+    this.conectionService.usuario2_listo(this.usuario1_nombre, this.usuario2_nombre);
+
 
     this.router.navigate(['/juego']);
 

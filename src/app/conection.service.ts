@@ -52,13 +52,27 @@ export class ConectionService {
     });
   };
 
-  poner_X(fila, columna) {
-    this.socket.emit('turno', {fila: fila, columna: columna});
+  poner_X(fila, columna, figura) {
+    this.socket.emit('turno', {fila: fila, columna: columna, figura: figura});
   }
 
   public HaLlegadoPoochie = () => {
     return Observable.create((observer) => {
       this.socket.on('turno', (data) => {
+        observer.next(data);
+      });
+    });
+  };
+  public not_turn = () => {
+    return Observable.create((observer) => {
+      this.socket.on('not_turn', (data) => {
+        observer.next(data);
+      });
+    });
+  };
+  public your_turn = () => {
+    return Observable.create((observer) => {
+      this.socket.on('your_turn', (data) => {
         observer.next(data);
       });
     });
@@ -150,13 +164,24 @@ export class ConectionService {
       });
     });
   };
+  public asignar_figuras = () => {
+    return Observable.create((observer) => {
+      this.socket.on('asignando_figuras', function (data) {
+        observer.next(data);
+      });
+    });
+  };
 
   usuario_listo() {
     this.socket.emit('el_usuario1_esta_listo', 'usuario1');
     this.status_user = true;
   }
 
-  usuario2_listo(usuario1_nombre) {
-    this.socket.emit('el_usuario2_esta_listo', usuario1_nombre);
+  usuario2_listo(usuario1_nombre, usuario2_nombre) {
+    this.socket.emit('el_usuario2_esta_listo', {name1: usuario1_nombre, name2: usuario2_nombre});
+  }
+
+  iniciar_partida() {
+    this.socket.emit('iniciar_partida', 'partida_iniciada');
   }
 }

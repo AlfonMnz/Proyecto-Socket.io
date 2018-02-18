@@ -16,16 +16,24 @@ export class JuegoComponent implements OnInit {
     ['', '', '']];
   array_mensajes = [];
   message = '';
+  figura: any;
 
   constructor(private conectionService: ConectionService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
     this.comprobar_si_esta_logueado();
+    this.iniciar_partida();
     this.conectionService.HaLlegadoPoochie().subscribe((data) => {
-      this.array_celdas[data.fila][data.columna] = 'x';
+      this.array_celdas[data.fila][data.columna] = data.figura;
       console.log(data);
 
+    });
+    this.conectionService.not_turn().subscribe((data) => {
+      this.turno = data;
+    });
+    this.conectionService.your_turn().subscribe((data) => {
+      this.turno = data;
     });
     this.conectionService.recibirMensaje().subscribe((data) => {
       console.log(data);
@@ -33,6 +41,14 @@ export class JuegoComponent implements OnInit {
     });
     this.conectionService.recibir_logueado().subscribe((data) => {
       this.router.navigate(['/']);
+    });
+    this.conectionService.asignar_figuras().subscribe((data) => {
+      if (this.conectionService.user == data) {
+        this.figura = 'x';
+        this.turno = true;
+      } else {
+        this.figura = 'o';
+      }
     });
   }
 
@@ -43,12 +59,20 @@ export class JuegoComponent implements OnInit {
   }
 
   clickeado(fila, columna) {
-    console.log(this.array_celdas[(fila)][(columna)]);
-    this.conectionService.poner_X(fila, columna);
+    if (this.turno === true) {
+      console.log(this.array_celdas[(fila)][(columna)]);
+      this.conectionService.poner_X(fila, columna, this.figura);
+    } else {
+      console.log('no es tu turno camarada');
+    }
   }
 
   comprobar_si_esta_logueado() {
     this.conectionService.comprobar_si_esta_logueado();
   };
+
+  iniciar_partida() {
+    this.conectionService.iniciar_partida();
+  }
 
 }
