@@ -17,6 +17,8 @@ export class JuegoComponent implements OnInit {
   array_mensajes = [];
   message = '';
   figura: any;
+  puntos_fila = [0, 0, 0];
+  puntos_columna = [0, 0, 0];
 
   constructor(private conectionService: ConectionService, private route: ActivatedRoute, private router: Router) {
   }
@@ -50,6 +52,9 @@ export class JuegoComponent implements OnInit {
         this.figura = 'o';
       }
     });
+    this.conectionService.ha_ganado().subscribe((data) => {
+      alert('el usuario' + data + 'ha ganado');
+    });
   }
 
   enviar_mensaje() {
@@ -58,12 +63,40 @@ export class JuegoComponent implements OnInit {
     this.message = '';
   }
 
-  clickeado(fila, columna) {
+  clickeado(fila, columna, valor) {
     if (this.turno === true) {
-      console.log(this.array_celdas[(fila)][(columna)]);
-      this.conectionService.poner_X(fila, columna, this.figura);
+      if (this.array_celdas[fila][columna] !== '') {
+        alert('esta celda está clickada ya ');
+      } else {
+        console.log(this.array_celdas[(fila)][(columna)]);
+        this.conectionService.poner_X(fila, columna, this.figura);
+        this.puntos_fila[fila] += valor;
+        this.puntos_columna[columna] += valor;
+        if (this.haGanado()) {
+          this.conectionService.ganador();
+        }
+        console.log('polla');
+      }
     } else {
       console.log('no es tu turno camarada');
+    }
+  }
+
+  haGanado() {
+    console.log(this.puntos_columna);
+    console.log(this.puntos_fila);
+    /* Comprobamos filas */
+    if (this.puntos_fila[0] === 7 || this.puntos_fila[1] === 56 || this.puntos_fila[2] === 448) {
+      console.log('ha ganado');
+      return true;
+    }
+    if (this.puntos_columna[0] === 73 || this.puntos_columna[1] === 146 || this.puntos_columna[2] === 292) {
+      console.log('ha ganado');
+      return true;
+    }
+    /* Comprobamos columnas */
+    else {
+      return false;
     }
   }
 

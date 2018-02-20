@@ -87,6 +87,9 @@ io.on('connection', (socket) => {
     io.emit('asignando_figuras', socket.usuario1_nombre)
 
   })
+  socket.on('ganador', function (data) {
+    io.emit('ganador', data)
+  })
   /*  socket.on('otro_usuario_listo', function (data) {
       if (data == socket.username){
         socket.emit('comenzar_partida','lets go')

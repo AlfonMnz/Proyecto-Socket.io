@@ -58,45 +58,45 @@
         <h1>TRES EN RAYA DE COCA!</h1>
       </div>
       <div class="row">
-        <button (click)="clickeado(0,0)"
+        <button (click)="clickeado(0,0,1)"
                 [ngClass]="{'inactive': array_celdas[0][0] == '', 'red': array_celdas[0][0] == 'x', 'blue': array_celdas[0][0] == 'o'}">
           {{array_celdas[0][0]}}
         </button>
-        <button (click)="clickeado(0,1)"
+        <button (click)="clickeado(0,1,2)"
                 [ngClass]="{'inactive': array_celdas[0][1] == '', 'red': array_celdas[0][1] == 'x', 'blue': array_celdas[0][1] == 'o'}">
           {{array_celdas[0][1]}}
         </button>
-        <button (click)="clickeado(0,2)"
+        <button (click)="clickeado(0,2,4)"
                 [ngClass]="{'inactive': array_celdas[0][2] == '', 'red': array_celdas[0][2] == 'x', 'blue': array_celdas[0][2] == 'o'}">
           {{array_celdas[0][2]}}
         </button>
 
       </div>
       <div class="row">
-        <button (click)="clickeado(1,0)"
+        <button (click)="clickeado(1,0,8)"
                 [ngClass]="{'inactive': array_celdas[1][0] == '', 'red': array_celdas[1][0] == 'x', 'blue': array_celdas[1][0] == 'o'}">
           {{array_celdas[1][0]}}
         </button>
-        <button (click)="clickeado(1,1)"
+        <button (click)="clickeado(1,1,16)"
                 [ngClass]="{'inactive': array_celdas[1][1] == '', 'red': array_celdas[1][1] == 'x', 'blue': array_celdas[1][1] == 'o'}">
           {{array_celdas[1][1]}}
         </button>
-        <button (click)="clickeado(1,2)"
+        <button (click)="clickeado(1,2,32)"
                 [ngClass]="{'inactive': array_celdas[1][2] == '', 'red': array_celdas[1][2] == 'x', 'blue': array_celdas[1][2] == 'o'}">
           {{array_celdas[1][2]}}
         </button>
 
       </div>
       <div class="row">
-        <button (click)="clickeado(2,0)"
+        <button (click)="clickeado(2,0,64)"
                 [ngClass]="{'inactive': array_celdas[2][0] == '', 'red': array_celdas[2][0] == 'x', 'blue': array_celdas[2][0] == 'o'}">
           {{array_celdas[2][0]}}
         </button>
-        <button (click)="clickeado(2,1)"
+        <button (click)="clickeado(2,1,128)"
                 [ngClass]="{'inactive': array_celdas[2][1] == '', 'red': array_celdas[2][1] == 'x', 'blue': array_celdas[2][1] == 'o'}">
           {{array_celdas[2][1]}}
         </button>
-        <button (click)="clickeado(2,2)"
+        <button (click)="clickeado(2,2,256)"
                 [ngClass]="{'inactive': array_celdas[2][2] == '', 'red': array_celdas[2][2] == 'x', 'blue': array_celdas[2][2] == 'o'}">
           {{array_celdas[2][2]}}
         </button>

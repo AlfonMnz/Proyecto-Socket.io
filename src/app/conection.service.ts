@@ -93,6 +93,17 @@ export class ConectionService {
       });
     });
   };
+  public ha_ganado = () => {
+    return Observable.create((observer) => {
+      this.socket.on('ganador', (data) => {
+        observer.next(data);
+      });
+    });
+  };
+
+  ganador() {
+    this.socket.emit('ganador', this.user);
+  }
 
   /*usuario_listo() {
     this.socket.emit('usuario_listo', this.user);
