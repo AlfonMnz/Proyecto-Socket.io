@@ -11,9 +11,9 @@ export class JuegoComponent implements OnInit {
   celda: EventTarget;
   turno = false;
   selector;
-  array_celdas = [['', '', ''],
-    ['', '', ''],
-    ['', '', '']];
+  array_celdas = [[' ', ' ', ' '],
+    [' ', ' ', ' '],
+    [' ', ' ', ' ']];
   array_mensajes = [];
   message = '';
   figura: any;
@@ -49,13 +49,13 @@ export class JuegoComponent implements OnInit {
     });
     this.conectionService.asignar_figuras().subscribe((data) => {
       this.ganador = false;
-      this.array_celdas = [['', '', ''],
-        ['', '', ''],
-        ['', '', '']];
+      this.array_celdas = [[' ', ' ', ' '],
+        [' ', ' ', ' '],
+        [' ', ' ', ' ']];
       this.puntos_columna = [0, 0, 0];
       this.puntos_fila = [0, 0, 0];
       this.puntos_diagonal = [0, 0];
-      if (this.conectionService.user == data) {
+      if (this.conectionService.user === data) {
         this.figura = 'x';
         this.turno = true;
       } else {
@@ -74,33 +74,55 @@ export class JuegoComponent implements OnInit {
     this.message = '';
   }
 
+  algunaCeldaVacia() {
+    for (const columna of this.array_celdas) {
+      for (const celda of columna) {
+        if (celda === '') {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   clickeado(fila, columna, valor) {
 
     if (this.ganador === true) {
       alert('dadle al boton de reiniciar');
     } else {
       if (this.turno === true) {
-        if (this.array_celdas[fila][columna] !== '') {
-          alert('esta celda está clickada ya ');
-        } else {
-          console.log(this.array_celdas[(fila)][(columna)]);
-          this.conectionService.poner_X(fila, columna, this.figura);
-          this.puntos_fila[fila] += valor;
-          this.puntos_columna[columna] += valor;
-          if (fila === columna) {
-            this.puntos_diagonal[0] += valor;
-            if (fila === 1) {
+        if (!this.algunaCeldaVacia) {
+          this.array_celdas = [['-', '-', '-'],
+            ['', '', ''],
+            ['', '', '']];
+          this.puntos_columna = [0, 0, 0];
+          this.puntos_fila = [0, 0, 0];
+          this.puntos_diagonal = [0, 0];
+        }
+        else {
+
+          if (this.array_celdas[fila][columna] !== '') {
+            alert('esta celda está clickada ya ');
+          } else {
+            console.log(this.array_celdas[(fila)][(columna)]);
+            this.conectionService.poner_X(fila, columna, this.figura);
+            this.puntos_fila[fila] += valor;
+            this.puntos_columna[columna] += valor;
+            if (fila === columna) {
+              this.puntos_diagonal[0] += valor;
+              if (fila === 1) {
+                this.puntos_diagonal[1] += valor;
+              }
+            }
+            if ((fila === 0 && columna === 2) || (fila === 2 && columna === 0)) {
               this.puntos_diagonal[1] += valor;
             }
-          }
-          if ((fila === 0 && columna === 2) || (fila === 2 && columna === 0)) {
-            this.puntos_diagonal[1] += valor;
-          }
-          console.log('puntos fila', this.puntos_fila);
-          console.log('puntos_columna', this.puntos_columna);
-          console.log('puntos diagonal', this.puntos_diagonal);
-          if (this.haGanado()) {
-            this.conectionService.ganador();
+            console.log('puntos fila', this.puntos_fila);
+            console.log('puntos_columna', this.puntos_columna);
+            console.log('puntos diagonal', this.puntos_diagonal);
+            if (this.haGanado()) {
+              this.conectionService.ganador();
+            }
           }
         }
       } else {
