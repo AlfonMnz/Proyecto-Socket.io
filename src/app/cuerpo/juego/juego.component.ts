@@ -11,9 +11,9 @@ export class JuegoComponent implements OnInit {
   celda: EventTarget;
   turno = false;
   selector;
-  array_celdas = [[' ', ' ', ' '],
-    [' ', ' ', ' '],
-    [' ', ' ', ' ']];
+  array_celdas = [['', '', ''],
+    ['', '', '' ],
+    ['', '', '']];
   array_mensajes = [];
   message = '';
   figura: any;
@@ -49,9 +49,9 @@ export class JuegoComponent implements OnInit {
     });
     this.conectionService.asignar_figuras().subscribe((data) => {
       this.ganador = false;
-      this.array_celdas = [[' ', ' ', ' '],
-        [' ', ' ', ' '],
-        [' ', ' ', ' ']];
+      this.array_celdas = [['', '', ''],
+        ['', '', ''],
+        ['', '', '']];
       this.puntos_columna = [0, 0, 0];
       this.puntos_fila = [0, 0, 0];
       this.puntos_diagonal = [0, 0];
@@ -92,7 +92,7 @@ export class JuegoComponent implements OnInit {
     } else {
       if (this.turno === true) {
         if (!this.algunaCeldaVacia) {
-          this.array_celdas = [['-', '-', '-'],
+          this.array_celdas = [['', '', ''],
             ['', '', ''],
             ['', '', '']];
           this.puntos_columna = [0, 0, 0];
