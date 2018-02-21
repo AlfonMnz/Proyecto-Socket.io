@@ -21,7 +21,7 @@ export class ChatComponent implements OnInit {
   usuario1_listo = false;
 
 
-  constructor(private conectionService: ConectionService, private route: ActivatedRoute, private router: Router) {
+  constructor(public conectionService: ConectionService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {

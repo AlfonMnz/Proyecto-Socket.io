@@ -8,9 +8,9 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./juego.component.css']
 })
 export class JuegoComponent implements OnInit {
-  private celda: EventTarget;
-  private turno = false;
-  private selector;
+  celda: EventTarget;
+  turno = false;
+  selector;
   array_celdas = [['', '', ''],
     ['', '', ''],
     ['', '', '']];
@@ -19,6 +19,8 @@ export class JuegoComponent implements OnInit {
   figura: any;
   puntos_fila = [0, 0, 0];
   puntos_columna = [0, 0, 0];
+  puntos_diagonal = [0, 0];
+  ganador = false;
 
   constructor(private conectionService: ConectionService, private route: ActivatedRoute, private router: Router) {
   }
@@ -42,9 +44,16 @@ export class JuegoComponent implements OnInit {
       this.array_mensajes.push(data);
     });
     this.conectionService.recibir_logueado().subscribe((data) => {
+
       this.router.navigate(['/']);
     });
     this.conectionService.asignar_figuras().subscribe((data) => {
+      this.ganador = false;
+      this.array_celdas = [['', '', ''],
+        ['', '', ''],
+        ['', '', '']];
+      this.puntos_columna = [0, 0, 0];
+      this.puntos_fila = [0, 0, 0];
       if (this.conectionService.user == data) {
         this.figura = 'x';
         this.turno = true;
@@ -54,6 +63,7 @@ export class JuegoComponent implements OnInit {
     });
     this.conectionService.ha_ganado().subscribe((data) => {
       alert('el usuario' + data + 'ha ganado');
+      this.ganador = true;
     });
   }
 
@@ -64,21 +74,37 @@ export class JuegoComponent implements OnInit {
   }
 
   clickeado(fila, columna, valor) {
-    if (this.turno === true) {
-      if (this.array_celdas[fila][columna] !== '') {
-        alert('esta celda está clickada ya ');
-      } else {
-        console.log(this.array_celdas[(fila)][(columna)]);
-        this.conectionService.poner_X(fila, columna, this.figura);
-        this.puntos_fila[fila] += valor;
-        this.puntos_columna[columna] += valor;
-        if (this.haGanado()) {
-          this.conectionService.ganador();
-        }
-        console.log('polla');
-      }
+
+    if (this.ganador === true) {
+      alert('dadle al boton de reiniciar');
     } else {
-      console.log('no es tu turno camarada');
+      if (this.turno === true) {
+        if (this.array_celdas[fila][columna] !== '') {
+          alert('esta celda está clickada ya ');
+        } else {
+          console.log(this.array_celdas[(fila)][(columna)]);
+          this.conectionService.poner_X(fila, columna, this.figura);
+          this.puntos_fila[fila] += valor;
+          this.puntos_columna[columna] += valor;
+          if (fila === columna) {
+            this.puntos_diagonal[0] += valor;
+            if (fila === 1) {
+              this.puntos_diagonal[1] += valor;
+            }
+          }
+          if ((fila === 0 && columna === 2) || (fila === 2 && columna === 0)) {
+            this.puntos_diagonal[1] += valor;
+          }
+          console.log('puntos fila', this.puntos_fila);
+          console.log('puntos_columna', this.puntos_columna);
+          console.log('puntos diagonal', this.puntos_diagonal);
+          if (this.haGanado()) {
+            this.conectionService.ganador();
+          }
+        }
+      } else {
+        console.log('no es tu turno camarada');
+      }
     }
   }
 
@@ -90,14 +116,17 @@ export class JuegoComponent implements OnInit {
       console.log('ha ganado');
       return true;
     }
+    /* Comprobamos columnas */
     if (this.puntos_columna[0] === 73 || this.puntos_columna[1] === 146 || this.puntos_columna[2] === 292) {
       console.log('ha ganado');
       return true;
     }
-    /* Comprobamos columnas */
-    else {
-      return false;
+    /* Comprobamos diagonales */
+    if (this.puntos_diagonal[0] === 273 || this.puntos_diagonal[1] === 84) {
+      return true;
     }
+    return false;
+
   }
 
   comprobar_si_esta_logueado() {
@@ -106,6 +135,11 @@ export class JuegoComponent implements OnInit {
 
   iniciar_partida() {
     this.conectionService.iniciar_partida();
+  }
+
+  revancha() {
+    this.conectionService.iniciar_partida();
+
   }
 
 }

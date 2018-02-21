@@ -15,7 +15,7 @@ export class ConectionService {
   private nombre_usuario_listo: any;
 
   constructor() {
-    this.socket = io(this.url);
+    this.socket = io(/*this.url*/);
     this.id = 0;
   }
 
