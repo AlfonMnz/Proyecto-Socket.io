@@ -54,6 +54,7 @@ export class JuegoComponent implements OnInit {
         ['', '', '']];
       this.puntos_columna = [0, 0, 0];
       this.puntos_fila = [0, 0, 0];
+      this.puntos_diagonal = [0, 0];
       if (this.conectionService.user == data) {
         this.figura = 'x';
         this.turno = true;
