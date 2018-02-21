@@ -63,7 +63,7 @@ export class JuegoComponent implements OnInit {
       }
     });
     this.conectionService.ha_ganado().subscribe((data) => {
-      alert('el usuario' + data + 'ha ganado');
+      alert('el usuario ' + data + ' ha ganado');
       this.ganador = true;
     });
   }
@@ -104,6 +104,7 @@ export class JuegoComponent implements OnInit {
           }
         }
       } else {
+        alert('No es tu turno camarada');
         console.log('no es tu turno camarada');
       }
     }
@@ -136,6 +137,10 @@ export class JuegoComponent implements OnInit {
 
   iniciar_partida() {
     this.conectionService.iniciar_partida();
+  }
+
+  volver_al_chat() {
+    this.router.navigate(['/chat']);
   }
 
   revancha() {
