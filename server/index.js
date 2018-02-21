@@ -4,7 +4,12 @@ var path = require('path');
 
 let http = require('http');
 let server = http.Server(app);
+
 app.use(express.static(path.join(__dirname, 'public')));
+app.get('*', function (req, res) {
+  res.sendfile(path.join(__dirname, 'public', 'index.html'));
+});
+
 let socketIO = require('socket.io');
 let io = socketIO(server);
 let array_users = [];
