@@ -1,8 +1,12 @@
-# ProyectoSocket.Io
+# Alfonso Muñoz Sánchez
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.5.
 
-## Development server
+Proyecto que conecta el Framework [Angular CLI](https://github.com/angular/angular-cli) versión 1.6.5 con un servidor 
+Node JS en el que se usa la librería Socket.IO
+
+## Proyecto
+
+El proyecto consiste en un 3 en raya con sala de espera y salas individuales para
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
